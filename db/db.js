@@ -6,7 +6,13 @@ const Sequelize = require("sequelize");
 // });
 
 const sequelize = new Sequelize(
-  process.env.DATABASE_URL || "postgres://localhost/database"
+  process.env.DATABASE_URL || "postgres://localhost/database",
+  {
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: true,
+    },
+  }
 );
 
 sequelize
