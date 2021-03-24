@@ -1,16 +1,116 @@
-const mongoose = require("mongoose");
+const Sequelize = require("sequelize");
 
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/hellox", {
-    useCreateIndex: true,
-    useNewUrlParser: true,
+// const sequelize = new Sequelize("database", "cagataykapuagasi", "password", {
+//   host: process.env.DATABASE_URL || "localhost",
+//   dialect: "postgres",
+// });
+
+const sequelize = new Sequelize(
+  process.env.DATABASE_URL || "postgres://localhost/database"
+);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
   })
-  .then(() => console.log("DB Connected!"))
   .catch((err) => {
-    console.log(err);
+    console.error("Unable to connect to the database:", err);
   });
-mongoose.Promise = global.Promise;
+
+const Model = Sequelize.Model;
+class User extends Model {}
+class Question extends Model {}
+class Choices extends Model {}
+User.init(
+  {
+    username: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    score: {
+      type: Sequelize.STRING,
+    },
+    deviceId: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    sequelize,
+    modelName: "user",
+  }
+);
+
+Question.init(
+  {
+    context: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    a: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    b: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    c: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    d: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    e: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "question",
+  }
+);
+
+// Choices.init(
+//   {
+//     a: {
+//       type: Sequelize.STRING,
+//       allowNull: false,
+//     },
+//     b: {
+//       type: Sequelize.STRING,
+//       allowNull: false,
+//     },
+//     c: {
+//       type: Sequelize.STRING,
+//       allowNull: false,
+//     },
+//     d: {
+//       type: Sequelize.STRING,
+//       allowNull: false,
+//     },
+//     e: {
+//       type: Sequelize.STRING,
+//       allowNull: false,
+//     },
+//   },
+//   {
+//     sequelize,
+//     modelName: "choices",
+//   }
+// );
+
+// Question.hasOne(Choices);
+// Choices.belongsTo(Question);
 
 module.exports = {
-  Bus: require("./models/Bus"),
+  User,
+  Question,
+  sequelize,
 };

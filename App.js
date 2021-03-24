@@ -5,9 +5,16 @@ const server = require("http").createServer(app);
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 8080;
 const Api = require("./routes");
+const { sequelize } = require("./db/db");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// sequelize.sync().then(() => {
+//   app.listen(process.env.PORT, () => {
+//     console.log(`Example app listening on port ${process.env.PORT}!`);
+//   });
+// });
 
 app.use("/api", Api);
 
