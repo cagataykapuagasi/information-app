@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 sequelize.sync().then(() => {
-  app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port ${process.env.PORT}!`);
+  server.listen(port, () => {
+    console.log(`Running Port: ${port}`);
   });
 });
 
@@ -20,8 +20,4 @@ app.use("/api", Api);
 
 app.all("*", (req, res) => {
   res.status(404).send({ message: "Not Found" });
-});
-
-server.listen(port, () => {
-  console.log(`Running Port: ${port}`);
 });
