@@ -10,11 +10,11 @@ const { sequelize } = require("./db/db");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// sequelize.sync().then(() => {
-//   app.listen(process.env.PORT, () => {
-//     console.log(`Example app listening on port ${process.env.PORT}!`);
-//   });
-// });
+sequelize.sync().then(() => {
+  app.listen(process.env.PORT, () => {
+    console.log(`Example app listening on port ${process.env.PORT}!`);
+  });
+});
 
 app.use("/api", Api);
 
