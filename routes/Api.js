@@ -51,8 +51,7 @@ async function deleteQuestion(req, res, next) {
     question.destroy();
     res.send({ message: "Question was successfully deleted.", data: question });
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
+    res.status(400).send(error, req.body);
   }
 }
 
