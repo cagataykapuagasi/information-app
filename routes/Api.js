@@ -46,12 +46,13 @@ async function deleteQuestion(req, res, next) {
     const {
       body: { id },
     } = req;
+    console.log("id", id);
 
     const question = await Question.findOne({ where: { id: parseInt(id) } });
     question.destroy();
     res.send({ message: "Question was successfully deleted.", data: question });
   } catch (error) {
-    res.status(400).send(error, req.body);
+    res.status(400).send(error);
   }
 }
 
