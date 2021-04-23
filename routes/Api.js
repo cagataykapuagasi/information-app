@@ -4,7 +4,7 @@ const { Question, User } = require("../db/db");
 router.get("/questions", getQuestions);
 router.post("/user", setUser);
 router.post("/questions/new", setQuestion);
-router.delete("/questions/delete", deleteQuestion);
+router.post("/questions/delete", deleteQuestion);
 
 async function getQuestions(req, res, next) {
   try {
@@ -46,7 +46,6 @@ async function deleteQuestion(req, res, next) {
     const {
       body: { id },
     } = req;
-    console.log("id", id);
 
     const question = await Question.findOne({ where: { id: parseInt(id) } });
     question.destroy();
