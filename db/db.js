@@ -79,6 +79,10 @@ Question.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    answer: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,
