@@ -4,6 +4,7 @@ const { Question, User } = require("../db/db");
 router.get("/questions", getQuestions);
 router.post("/user", setUser);
 router.post("/questions/new", setQuestion);
+router.delete("/questions/delete", deleteQuestion);
 
 async function getQuestions(req, res, next) {
   try {
@@ -34,6 +35,21 @@ async function setQuestion(req, res, next) {
   try {
     const question = await Question.create(body);
     res.send({ message: "Question was successfully saved.", data: question });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+}
+
+async function deleteQuestion(req, res, next) {
+  try {
+    const {
+      body: { id },
+    } = req;
+
+    const question = await Question.findOne({ where: { id } });
+    question.destroy();
+    res.send({ message: "Question was successfully deleted.", data: question });
   } catch (error) {
     console.log(error);
     res.status(400).send(error);

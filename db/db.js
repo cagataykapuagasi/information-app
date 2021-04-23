@@ -58,6 +58,7 @@ Question.init(
     context: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
     },
     a: {
       type: Sequelize.STRING,
