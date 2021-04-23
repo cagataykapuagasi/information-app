@@ -8,7 +8,7 @@ router.post("/questions/new", setQuestion);
 async function getQuestions(req, res, next) {
   try {
     Question.findAll().then((questions) => {
-      res.send({ data: questions });
+      res.send(questions);
     });
   } catch (error) {
     res.status(500).send(error);
